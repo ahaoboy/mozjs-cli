@@ -1,0 +1,7 @@
+[package]
+name = "mozjs"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+mozjs = { git = "https://github.com/servo/mozjs" }
