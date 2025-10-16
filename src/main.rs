@@ -49,17 +49,12 @@ fn main() {
             0,
         );
         assert!(!function.is_null());
-
+        let lineno: u32 = 1;
+        let options = rt.new_compile_options(filename, lineno);
         rooted!(in(context) let mut rval = UndefinedValue());
         assert!(
             runtime
-                .evaluate_script(
-                    global.handle(),
-                    &javascript,
-                    "test.js",
-                    0,
-                    rval.handle_mut()
-                )
+                .evaluate_script(global.handle(), &javascript, rval.handle_mut(), options)
                 .is_ok()
         );
     }
