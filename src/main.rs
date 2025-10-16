@@ -24,6 +24,11 @@ fn main() {
         return;
     };
 
+    let Some(filename) = std::path::Path::new(&path).file_name() else {
+        println!("failed to get filename {path}");
+        return;
+    };
+
     let engine = JSEngine::init().unwrap();
     let runtime = Runtime::new(engine.handle());
     let context = runtime.cx();
@@ -50,7 +55,7 @@ fn main() {
         );
         assert!(!function.is_null());
         let lineno: u32 = 1;
-        let options = rt.new_compile_options(filename, lineno);
+        let options = runtime.new_compile_options(&filename.to_string_lossy(), lineno);
         rooted!(in(context) let mut rval = UndefinedValue());
         assert!(
             runtime
